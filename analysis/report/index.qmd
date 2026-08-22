@@ -1,0 +1,688 @@
+---
+title: "Review Methodology for AI-Assisted Textbook Drafting"
+author: "Ronald G. Thomas"
+date: "2026-08-18"
+categories: [writing, textbooks, teaching, ai-assisted-writing, editing]
+description: "A methodological framework for reviewing textbook chapters drafted with generative-AI assistance, structured as five review phases plus an explicit test for whether the human author has earned ownership of the material."
+image: "media/images/hero.jpg"
+document-type: "blog"
+draft: true
+execute:
+  echo: true
+  warning: false
+  message: false
+format:
+  html:
+    code-fold: false
+    code-tools: false
+  pdf:
+    pdf-engine: xelatex
+    monofont: 'DejaVu Sans Mono'
+    geometry: margin=1in
+    fontsize: 11pt
+    toc: false
+---
+
+<!-- ============================================================================
+AUTHOR PROVIDES — concrete inputs the blogger must supply
+
+YAML FRONT MATTER
+  [x] title, date, categories, description, image filled in
+  [ ] draft: false    — flip when ready
+
+IMAGES (4 total: hero + 3 ambiance, all in media/images/)
+  [ ] Hero image (80% width)
+  [ ] Ambiance image 1 — after Objectives
+  [ ] Ambiance image 2 — mid-body, after the phase walkthrough
+  [ ] Ambiance image 3 — before Lessons Learnt
+  [ ] media/images/README.md — sources + attribution for every image
+
+SOURCE
+  Adapted from the sibling post 'Code Review for AI-Assisted R Package
+  Development' (../rp-code-review-methodology/), which is itself adapted
+  from docs/CODE_REVIEW_METHODOLOGY.md in the zzobj2fig package. This
+  post transposes the same five-phase structure and ownership test from
+  code review onto book-length, pedagogically structured manuscripts; no
+  claims specific to R packages have been carried over, and no new
+  claims have been added beyond what the transposition requires. See
+  also the sibling post for blog-length prose, ../rp-blog-review-
+  methodology/, which this post extends to longer, curriculum-structured
+  material.
+============================================================================ -->
+
+![  ](media/images/hero.jpg){.img-fluid width=80% fig-align="center"}
+
+*A textbook chapter outlined by a human and drafted by an assistant
+still needs one owner who can teach every page: this is the checklist
+for becoming that owner.*
+
+# Introduction
+
+A drafting pattern increasingly common in technical and academic
+publishing pairs a human author, who defines the curriculum, learning
+objectives, and pedagogical sequence, with an AI assistant that
+drafts the exposition, worked examples, and exercises chapter by
+chapter. The arrangement compresses drafting time considerably, but
+it creates a responsibility gap sharper than the one found in blog
+prose, because a textbook carries an implicit promise: a reader will
+learn correctly from it, an instructor will assign it in good faith,
+and an exercise's stated answer will actually be correct. The
+author's name on the cover carries the obligation to stand behind
+every explanation, example, and exercise, regardless of who drafted
+it first.
+
+This post presents a methodological framework for closing that gap
+for book-length, pedagogically structured material. It is a direct
+transposition of a companion framework originally written for
+reviewing AI-assisted R packages, [Code Review for AI-Assisted R
+Package Development](../rp-code-review-methodology/), and it extends
+a second sibling written for blog-length prose, [Review Methodology
+for AI-Assisted Blog Post Drafting](../rp-blog-review-methodology/),
+to the additional demands of curriculum structure, cross-chapter
+continuity, and exercises with verifiable answers. It ends the same
+way both siblings do: with an explicit ownership test rather than a
+vague sense that a chapter "reads fine."
+
+## Motivations
+
+- **The responsibility gap is sharper in a textbook than in a blog
+  post.** A reader who works through an incorrect worked example
+  learns the error as fact, and an instructor who assigns a broken
+  exercise discovers it live, in front of a class.
+- **AI-drafted textbook prose has characteristic failure modes
+  beyond those found in shorter prose.** Notation drift across
+  chapters, exercises with no verified correct answer, and
+  oversimplified explanations that are wrong at the boundary all
+  surface at book length in ways a single post rarely exposes.
+- **A chapter that reads well in isolation can still break the
+  book's continuity.** Terminology introduced in chapter three but
+  used without definition in chapter one is a defect a single-
+  chapter read-through cannot catch.
+- **Ownership needs a definition, not a feeling.** "I read the
+  chapter" and "I can teach this chapter from memory, work every
+  exercise myself, and answer a confused student's question about
+  it" are different claims, and only the second one licenses
+  publishing under your own name.
+
+## Objectives
+
+1. Define the five review phases (structural, section-by-section,
+   verification of examples and exercises, cross-chapter
+   integration, pedagogical and factual safety) and what each phase
+   is for.
+2. Catalogue the AI-generated textbook patterns that deserve
+   specific scrutiny during the section-level pass.
+3. Provide a concrete note-taking and severity-classification system
+   for tracking findings through revision, chapter by chapter.
+4. Establish a verifiable test for "ownership": what an author must
+   be able to do, unaided, before publishing a chapter, or the book,
+   as their own.
+
+![  ](media/images/ambiance1.jpg){.img-fluid}
+
+# What Is This Framework For?
+
+The scope is deliberately narrow. It addresses review of textbook
+chapters where a human author defined the curriculum, learning
+objectives, and pedagogical sequence, an AI assistant drafted the
+exposition, worked examples, and exercises from that plan, and the
+author now seeks complete ownership and understanding of the result
+before it is published or assigned. It is not a general curriculum
+design guide, and it does not replace a publisher's editorial and
+accuracy review; it sits alongside both.
+
+A thorough review in this context serves five purposes:
+comprehension (the author understands and can teach every claim and
+example), correctness (every explanation, derivation, and exercise
+answer holds up), pedagogical soundness (the sequencing and
+difficulty curve serve the stated learning objectives), consistency
+(notation, terminology, and conventions hold across chapters), and
+safety (the material introduces no factual, legal, or academic-
+integrity exposure).
+
+# Prerequisites
+
+Before starting, assemble the curriculum outline and learning
+objectives for the book and for the chapter under review, any source
+material the chapter draws on (papers, prior editions, lecture
+notes), the conversation log or prompts used during drafting, and a
+style and notation guide covering terminology, symbol conventions,
+and code style used consistently across the book. Then set up a
+working environment: a rendered preview of the chapter, a runnable
+copy of every code example in the environment the book targets, and
+a separate document tracking notation and terminology introduced in
+each chapter, since cross-chapter consistency cannot be checked from
+memory alone.
+
+# The Five Review Phases
+
+## Phase 1: Structural Review
+
+Begin at the chapter level, before reading any individual section.
+
+**Chapter outline fidelity.** Compare the drafted section headings
+and their order against the curriculum outline. Sections not
+requested, sections requested but missing, and a reordering that
+disrupts the intended learning sequence are all structural defects
+worth flagging before section-level review starts.
+
+**Learning objectives coverage.** For each stated learning
+objective, confirm the chapter actually addresses it, and confirm
+nothing in the chapter falls outside the stated objectives without
+reason; scope creep in a textbook chapter dilutes focus for the
+reader working through it.
+
+**Exercise placement and count.** Are exercises distributed to match
+where the relevant concept was introduced, and is the count and
+difficulty spread proportionate to the chapter's weight in the
+overall curriculum?
+
+## Phase 2: Section-by-Section Review
+
+This is the core of the process. For every section, work through
+five questions in order:
+
+**Correctness.** Is every explanation, derivation, and worked
+example accurate? Does the chapter state a general rule that is
+actually only true under conditions the text does not mention?
+
+**Pedagogical alignment.** Does the section build toward the stated
+learning objective at a pace and difficulty appropriate for the
+book's stated audience, or has the assistant introduced material
+that is too advanced, too basic, or simply off the objective?
+
+**Worked-example integrity.** Does every step of a worked example
+follow from the step before it, and does the final answer match
+independent recomputation?
+
+**Notation and terminology consistency.** Does the section use the
+symbols and terms as defined earlier in the book, rather than
+introducing a plausible-looking but locally inconsistent notation?
+
+**Clarity.** Can you explain, in your own words and at the level of
+the intended reader, what the section teaches and why it is
+sequenced where it is?
+
+For each section, read the learning objective before reading the
+drafted exposition, work through every example independently before
+comparing against the drafted solution, verify that the section's
+exercises actually test the section's stated objective rather than a
+different or harder skill, and deliberately question any step in a
+derivation that is presented without justification, since AI-drafted
+exposition tends to skip a step that is obvious to the assistant but
+not to the intended reader.
+
+### Patterns specific to AI-generated textbook prose
+
+A handful of patterns recur often enough in assistant-drafted
+chapters to warrant a dedicated pass:
+
+- **Notation drift.** A symbol or term defined one way in an earlier
+  chapter and used inconsistently, or redefined without comment, in
+  a later one.
+- **Exercises without a verified answer.** A problem set generated
+  alongside the exposition, where no one has actually worked the
+  exercise to confirm the stated or implied answer is correct.
+- **Oversimplification at the boundary.** A rule stated as general
+  that is only true in the common case, with the boundary condition
+  where it fails omitted rather than flagged.
+- **Hallucinated citations or historical claims.** A reference,
+  formula attribution, or historical detail that does not check out
+  against the actual source.
+- **Uneven difficulty curve.** A chapter that moves from
+  introductory material directly to an advanced worked example
+  without the intermediate scaffolding a learner at the stated level
+  needs.
+- **Pattern mimicry in code examples.** A code example that follows
+  a familiar idiom convincingly while using a function, argument, or
+  package version that does not match what the book claims to
+  teach.
+
+## Phase 3: Verification of Examples and Exercises
+
+Coverage of "the chapter has worked examples" is a starting point,
+not a conclusion. For every worked example, independently recompute
+the result rather than trusting the drafted derivation. For every
+code example, run it in the exact environment (language version,
+package versions) the book specifies, since a snippet that merely
+looks idiomatic is the textbook equivalent of a test that asserts
+nothing. For every exercise, work it yourself and confirm the
+book's answer key, if one exists, matches; if no answer key exists
+yet, create one as part of the review rather than leaving it to a
+future pass.
+
+Then check correspondence in both directions: every concept
+introduced in the exposition should be exercised somewhere in the
+problem set, and every exercise should map to a concept the
+exposition actually taught. An exercise that requires a technique
+not yet introduced is as much a defect as exposition with no
+exercise to reinforce it.
+
+## Phase 4: Cross-Chapter Integration Review
+
+Trace continuity across chapter boundaries rather than within a
+single chapter. Does each chapter build on terminology and
+techniques established in prior chapters without silently
+reintroducing or contradicting them? Identify any notation
+introduced in one chapter that a later chapter uses differently.
+Verify that a running example, if the book uses one, stays
+consistent in its data, results, and framing across every chapter
+that touches it, and that forward references ("as we will see in
+Chapter 7") actually resolve to material that Chapter 7 contains.
+
+## Phase 5: Pedagogical and Factual Safety Review
+
+Examine the chapter for the exposure classes specific to published
+educational material: factual claims presented with more certainty
+than the field actually supports, attribution of a method, theorem,
+or dataset to the wrong source, exercises or examples that use
+copyrighted material beyond fair use, and any worked example built
+on a real, identifiable dataset that requires a license or citation
+the book does not provide. Finally, consider the academic-integrity
+angle: are examples and exercises original enough, or drawn from
+appropriately licensed sources, to avoid inadvertent overlap with an
+existing textbook's problem set?
+
+![  ](media/images/ambiance2.jpg){.img-fluid}
+
+# Documentation Review
+
+Two audiences get separate passes. For the student working through
+the chapter independently, the exposition should be self-contained
+enough that a reader who has completed the prerequisite chapters can
+follow it without outside material. For the instructor assigning the
+chapter, supplementary material (a solutions manual, slide outline,
+or suggested pacing) should accurately reflect the chapter's actual
+content and difficulty, not a idealized or padded version of it.
+
+# Annotation and Severity
+
+Maintain structured notes during the review rather than relying on
+memory. A minimal per-section template:
+
+```markdown
+## Section: section_heading
+
+### Status: [Reviewed | Needs Revision | Approved]
+
+### Understanding
+[Summary of what the section teaches, in your own words]
+
+### Concerns
+- [Issue 1]
+- [Issue 2]
+
+### Questions
+- [Question for further investigation]
+
+### Changes Required
+- [ ] Change 1
+- [ ] Change 2
+```
+
+Classify every finding by severity: **Critical** (a factually
+incorrect explanation or derivation, an exercise with no correct
+answer, or an academic-integrity risk), **Major** (a significant
+departure from the stated learning objectives, notation
+inconsistent with earlier chapters, or a broken code example),
+**Minor** (an awkward explanation, an uneven difficulty step, or a
+formatting slip), or **Enhancement** (a suggestion beyond what the
+curriculum outline called for). The severity tier determines the
+order of revision, not whether an issue gets fixed at all.
+
+# Remediation and Final Verification
+
+Work through issues in severity order: critical issues affecting
+correctness or exercise validity first, then major issues affecting
+pedagogical soundness or cross-chapter consistency, then minor
+issues and enhancements as time allows. For each fix, understand why
+the original explanation or example was wrong before rewriting it,
+rewrite the passage yourself rather than asking the assistant to
+patch it without understanding the patch, re-verify any example or
+exercise the fix touches by reworking it independently, and update
+any cross-chapter reference the fix affects.
+
+After remediation, re-read the entire chapter start to finish as a
+student would, re-run every code example, rework every exercise
+against its answer key one final time, and review the diff against
+the last reviewed draft before considering the chapter's review
+closed. Before calling the book's review complete, run a full
+consistency pass across all chapters: confirm notation and
+terminology usage against the book's style guide, confirm every
+forward and backward reference resolves, and confirm the rendered
+preview matches the source with no formatting artifacts.
+
+![  ](media/images/ambiance3.jpg){.img-fluid}
+
+# Per-Chapter Review Checklist
+
+The five phases above are the reasoning behind this checklist; the
+checklist itself is what to actually run through for a given
+chapter. Copy it per chapter rather than trying to hold it in memory
+across multiple chapters in progress at once.
+
+**Phase 1: Structural**
+
+- [ ] Drafted section headings and order match the curriculum
+      outline
+- [ ] Every stated learning objective is addressed, and nothing
+      falls outside the stated objectives without reason
+- [ ] Exercise placement and count proportionate to the chapter's
+      weight in the curriculum
+
+**Phase 2: Section-by-section**
+
+- [ ] Every section reviewed for correctness, pedagogical alignment,
+      worked-example integrity, notation/terminology consistency,
+      and clarity
+- [ ] Every worked example reworked independently before comparing
+      against the drafted solution
+- [ ] Every AI-generated-textbook pattern in this post's list
+      (notation drift, exercises without a verified answer,
+      oversimplification at the boundary, hallucinated citations or
+      historical claims, uneven difficulty curve, pattern mimicry in
+      code examples) checked for, not just read past
+
+**Phase 3: Verification of examples and exercises**
+
+- [ ] Every worked example independently recomputed, not trusted
+      from the drafted derivation
+- [ ] Every code example run in the exact environment (language and
+      package versions) the book specifies
+- [ ] Every exercise worked and its answer confirmed against the
+      answer key, or an answer key created if none exists
+
+**Phase 4: Cross-chapter integration**
+
+- [ ] Terminology and techniques confirmed consistent with prior
+      chapters, with no silent reintroduction or contradiction
+- [ ] Any notation introduced in one chapter checked against how a
+      later chapter uses it
+- [ ] Forward references ("as we will see in Chapter 7") confirmed
+      to resolve to material that chapter actually contains
+
+**Phase 5: Pedagogical and factual safety**
+
+- [ ] No factual claim presented with more certainty than the field
+      actually supports
+- [ ] No method, theorem, or dataset misattributed to the wrong
+      source
+- [ ] Examples and exercises confirmed original or appropriately
+      licensed, with no inadvertent overlap with an existing
+      textbook's problem set
+
+**Before publishing: ownership sign-off**
+
+- [ ] Can teach the chapter's material from memory at the level the
+      book targets
+- [ ] Can work every exercise in the chapter and confirm the answer
+      against the answer key
+- [ ] Can identify where a student's likely misunderstanding would
+      arise and explain past it
+- [ ] Can predict how the chapter would need to change for a
+      different audience level
+- [ ] Can answer a reader's or reviewer's challenge to any specific
+      claim or derivation, unaided
+
+A "no" anywhere in this checklist is a blocker, not a note for
+later; see Establishing Ownership below for what each unchecked box
+actually costs if it ships unresolved.
+
+# Things to Watch Out For
+
+- **A well-written explanation that is quietly wrong at the
+  boundary.** Clear prose is not evidence of correctness; check the
+  edge case the text does not mention.
+- **Delegating the fix back to the assistant.** Asking the assistant
+  to correct a flagged derivation and accepting the correction
+  unread repeats the original problem one level down.
+- **Treating an unverified exercise as a rare edge case.** It
+  surfaces often enough in assistant-drafted problem sets that
+  working every exercise yourself is worth the time, not an optional
+  spot check.
+- **Reviewing chapters in isolation instead of curriculum order.** A
+  notation inconsistency is invisible within a single chapter and
+  only surfaces when chapters are compared against each other.
+- **Skipping the "why," not just the "what."** A section can be
+  factually correct and still misaligned with the pedagogical
+  sequence the author actually intended.
+- **Conflating "read it" with "can teach it."** The annotation
+  template's "Understanding" field is not decorative; if you cannot
+  teach the section from memory, it has not actually been reviewed.
+
+# Lessons Learnt
+
+**Conceptual understanding:**
+
+- Ownership of a published chapter is a testable claim (can you
+  teach it, can you work every exercise), not a feeling of
+  familiarity with the topic.
+- Correctness and pedagogical soundness are different axes; a
+  review needs both, and a chapter can pass one while failing the
+  other.
+- AI-drafted textbook prose has a distinct failure signature
+  (notation drift, unverified exercises, boundary
+  oversimplification) that ordinary proofreading does not catch.
+
+**Technical:**
+
+- Reworking every exercise independently, rather than spot-checking
+  a sample, is the only reliable way to confirm an answer key.
+- A running cross-chapter notation log catches drift that no single
+  chapter's review can, because the inconsistency only exists in
+  the comparison.
+- Running every code example in the book's stated target
+  environment surfaces version-specific breakage that a
+  render-only check will not.
+
+**Gotchas:**
+
+- A worked example's final answer can be correct while an
+  intermediate step contains an error that happens to cancel out;
+  verify every step, not just the answer.
+- A chapter's exposition can accurately describe a rule while the
+  chapter's own worked example silently violates the boundary
+  condition of that rule.
+- An exercise can look answerable from the chapter's exposition
+  while actually requiring a technique from a later chapter; verify
+  the exercise is solvable with only what has been taught so far.
+
+# Limitations
+
+- The framework is scoped to textbook-length, curriculum-structured
+  material; the phase structure generalizes from the sibling
+  framework for blog-length prose, [Review Methodology for
+  AI-Assisted Blog Post Drafting](../rp-blog-review-methodology/),
+  but the cross-chapter integration phase has no direct analogue in
+  a single, standalone post.
+- It assumes the human author already has enough domain and
+  pedagogical fluency to evaluate correctness and sequencing; it is
+  not a substitute for subject-matter or instructional-design
+  expertise.
+- It does not specify how much reviewer time is proportionate to a
+  chapter's length, difficulty, or stakes; that judgment is left to
+  the reviewer.
+- The ownership test in the final section is self-administered; it
+  provides no external verification, such as a second reviewer or a
+  classroom pilot, that the answers given are accurate.
+
+# Opportunities for Improvement
+
+1. A companion checklist scaled down for short supplementary
+   material (an appendix or a single worked example), where the
+   full five-phase process is disproportionate.
+2. Worked severity-classification examples specific to textbooks,
+   since "Major" versus "Critical" boundary cases (an oversimplified
+   rule versus an outright incorrect one) are where reviewers
+   disagree most.
+3. Guidance on reviewing an AI-assisted *revision* to an already-
+   owned chapter for a second edition, as distinct from reviewing an
+   entire AI-drafted chapter from scratch.
+4. A shared vocabulary for disclosing AI involvement in a preface or
+   colophon, referenced in this framework's pedagogical and factual
+   safety phase but not specified in detail.
+5. A classroom-piloting protocol that closes the gap this
+   framework's Limitations section identifies: a self-administered
+   ownership test with no external verification.
+
+# Establishing Ownership
+
+Before publishing or assigning a chapter, verify that you can,
+without referring to the draft: teach the chapter's material from
+memory at the level the book targets, work every exercise in the
+chapter and confirm your answer against the answer key, identify
+where a student's likely misunderstanding would arise and explain
+past it, and predict how the chapter would need to change for a
+different audience level. Separately, confirm publication readiness:
+can you answer a reader's or reviewer's challenge to any specific
+claim or derivation, correct an error in a later printing or
+edition, and extend the chapter's material yourself if the
+curriculum changes?
+
+Consider also documenting the drafting process itself: that AI
+assistance was used, what review process was undertaken, and, where
+the format supports it, a note in the preface or colophon disclosing
+the extent of that assistance. This is increasingly expected by
+publishers and by readers in technical and academic publishing, and
+it gives a future maintainer, a co-author on a later edition, or a
+future version of the author, the context this review process
+assumed from the start.
+
+Review does not end at first publication. Any substantive
+AI-assisted revision to a published chapter, for a new edition or an
+errata pass, should go through the same review before it ships, and
+worked examples that depend on external tools or datasets are worth
+periodic re-verification as those dependencies change version.
+Knowledge decays without use: teaching from the material regularly,
+documenting corrections as they are found, and keeping review notes
+accessible are what keep the ownership claim true over time, not
+just true at the moment of first publication.
+
+# Wrapping Up
+
+## What Did We Learn?
+
+Thorough review of an AI-drafted textbook chapter requires the same
+rigor a careful subject-matter reviewer would bring to any submitted
+manuscript, plus a specific sensitivity to the failure modes
+assistant-drafted educational material tends to produce. The process
+demands more than a read-through; it requires achieving genuine
+teaching-level understanding of every explanation, example, and
+exercise before accepting responsibility for it under the author's
+name. The five-phase structure (structural, section-by-section,
+verification of examples and exercises, cross-chapter integration,
+pedagogical and factual safety) gives that process a checklist
+rather than leaving it to instinct, and the ownership test at the
+end gives it a stopping condition: review is complete when the
+answers to the ownership questions are honestly yes, not when the
+reviewer is tired of reading the chapter.
+
+**Main takeaways:**
+
+- Clear exposition is a floor, not a target; verify every derivation
+  and exercise independently, do not just read past them.
+- AI-drafted textbook prose has a specific set of failure patterns,
+  including notation drift and unverified exercises, that a
+  paragraph-level read misses at book length.
+- Ownership is demonstrated by the ability to teach the material and
+  defend it unaided, not claimed by completing a checklist.
+
+**If you are trying this yourself:** start with the structural
+review and the curriculum outline before reading any section
+closely, keep a running cross-chapter notation log open alongside
+the annotation template, and do not flip a chapter to "reviewed"
+until you can honestly answer every question in the Establishing
+Ownership section, including working every exercise yourself.
+
+# See Also
+
+This post extends a framework first written for a different medium
+and a shorter form: [Code Review for AI-Assisted R Package
+Development](../rp-code-review-methodology/) applies the same
+five-phase structure and ownership test to R package code, and
+[Review Methodology for AI-Assisted Blog Post Drafting](../rp-blog-review-methodology/)
+applies it to blog-length prose. This post adds the phases and
+patterns specific to book-length, pedagogically structured
+material: exercise verification and cross-chapter integration. A
+further sibling, [Review Methodology for AI-Assisted Research Paper
+Drafting](../rp-paper-review-methodology/), applies the same
+framework to academic manuscripts and grounds its ownership test in
+published journal and publisher AI-disclosure policy.
+
+**Key resources:**
+
+- [How Learning Works](https://www.wiley.com/en-us/How+Learning+Works%3A+Seven+Research+Based+Principles+for+Smart+Teaching-p-9780470484104) —
+  Ambrose et al.
+- [The Craft of Scientific Writing](https://link.springer.com/book/10.1007/978-1-4419-0087-9) —
+  Michael Alley
+
+---
+
+# Reproducibility
+
+**Source document:** adapted from `analysis/report/index.qmd` in the
+sibling post `rp-code-review-methodology`
+(`~/prj/rgtlab/posts/rp-code-review-methodology/`) and the sibling
+post `rp-blog-review-methodology`
+(`~/prj/rgtlab/posts/rp-blog-review-methodology/`). This post
+transposes and extends that framework's five-phase structure and
+ownership test to textbook-length material; no methodological claims
+specific to R packages or short-form prose were carried over without
+adaptation.
+
+**Session information:**
+
+```{r}
+#| label: session-info
+#| echo: false
+sessionInfo()
+```
+
+---
+
+*Rendered on 2026-08-18 at 12:01 PDT.*<br>
+*Source: ~/prj/rgtlab/posts/rp-book-review-methodology/analysis/report/index.qmd*
+
+---
+
+# Let's Connect
+
+Questions, corrections, or a different view on where this framework
+is too strict or too loose are welcome in the comment thread below.
+
+- **GitHub**: [rgt47](https://github.com/rgt47)
+- **Email**: [Contact form](https://rgtlab.org/contact)
+
+<!-- ============================================================================
+PRE-PUBLISH QA CHECKLIST — verify each item BEFORE setting draft: false
+
+[ ] YAML
+    [x] title, date, categories, description, image filled in
+    [x] document-type: "blog"
+    [ ] draft: false
+
+[ ] Visual design
+    [ ] 1 hero image (width=80%) present
+    [ ] Exactly 3 ambiance images ({.img-fluid} only) after Objectives,
+        mid-body, and before Lessons Learnt
+    [ ] media/images/README.md attributes every image
+
+[ ] Content quality
+    [x] Zero emoji anywhere
+    [x] Zero em dashes
+    [x] Single quotes preferred over double quotes in prose
+    [x] Direct-abstract opening (reference style, no fabricated personal
+        narrative not grounded in the source document)
+
+[ ] Cross-references
+    [x] See Also links to the code-review sibling and the blog-review
+        sibling
+    [ ] Sibling posts' See Also sections link back here (verify after
+        this post exists on disk)
+
+[ ] Render verification
+    [ ] quarto render index.qmd produces clean HTML with no warnings
+    [ ] Hero image displays in /blog/ listing card
+    [ ] Internal links resolve
+
+============================================================================ -->
