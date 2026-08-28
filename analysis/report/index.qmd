@@ -100,7 +100,7 @@ vague sense that a chapter "reads fine."
    verification of examples and exercises, cross-chapter
    integration, pedagogical and factual safety) and what each phase
    is for.
-2. Catalogue the AI-generated textbook patterns that deserve
+2. Catalog the AI-generated textbook patterns that deserve
    specific scrutiny during the section-level pass.
 3. Provide a concrete note-taking and severity-classification system
    for tracking findings through revision, chapter by chapter.
@@ -440,7 +440,7 @@ actually costs if it ships unresolved.
   template's "Understanding" field is not decorative; if you cannot
   teach the section from memory, it has not actually been reviewed.
 
-# Lessons Learnt
+# Lessons Learned
 
 **Conceptual understanding:**
 
