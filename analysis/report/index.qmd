@@ -122,13 +122,12 @@ design guide, and it does not replace a publisher's editorial and
 accuracy review; it sits alongside both.
 
 A thorough review in this context serves five purposes:
-comprehension (the author understands and can teach every claim and
-example), correctness (every explanation, derivation, and exercise
-answer holds up), pedagogical soundness (the sequencing and
-difficulty curve serve the stated learning objectives), consistency
-(notation, terminology, and conventions hold across chapters), and
-safety (the material introduces no factual, legal, or academic-
-integrity exposure).
+
+1. **Comprehension.** The author understands and can teach every claim and example.
+2. **Correctness.** Every explanation, derivation, and exercise answer holds up.
+3. **Pedagogical soundness.** The sequencing and difficulty curve serve the stated learning objectives.
+4. **Consistency.** Notation, terminology, and conventions hold across chapters.
+5. **Safety.** The material introduces no factual, legal, or academic-integrity exposure.
 
 # Prerequisites
 
@@ -195,10 +194,10 @@ sequenced where it is?
 
 For each section, read the learning objective before reading the
 drafted exposition, work through every example independently before
-comparing against the drafted solution, verify that the section's
+comparing against the drafted solution, and verify that the section's
 exercises actually test the section's stated objective rather than a
-different or harder skill, and deliberately question any step in a
-derivation that is presented without justification, since AI-drafted
+different or harder skill. Deliberately question any step in a
+derivation that is presented without justification: AI-drafted
 exposition tends to skip a step that is obvious to the assistant but
 not to the intended reader.
 
@@ -263,12 +262,12 @@ Chapter 7") actually resolve to material that Chapter 7 contains.
 ## Phase 5: Pedagogical and Factual Safety Review
 
 Examine the chapter for the exposure classes specific to published
-educational material: factual claims presented with more certainty
-than the field actually supports, attribution of a method, theorem,
-or dataset to the wrong source, exercises or examples that use
-copyrighted material beyond fair use, and any worked example built
-on a real, identifiable dataset that requires a license or citation
-the book does not provide. Finally, consider the academic-integrity
+educational material:
+
+- Factual claims presented with more certainty than the field actually supports.
+- Attribution of a method, theorem, or dataset to the wrong source.
+- Exercises or examples that use copyrighted material beyond fair use.
+- Any worked example built on a real, identifiable dataset that requires a license or citation the book does not provide. Finally, consider the academic-integrity
 angle: are examples and exercises original enough, or drawn from
 appropriately licensed sources, to avoid inadvertent overlap with an
 existing textbook's problem set?
@@ -517,13 +516,13 @@ actually costs if it ships unresolved.
 
 # Establishing Ownership
 
-Before publishing or assigning a chapter, verify that you can,
-without referring to the draft: teach the chapter's material from
-memory at the level the book targets, work every exercise in the
-chapter and confirm your answer against the answer key, identify
-where a student's likely misunderstanding would arise and explain
-past it, and predict how the chapter would need to change for a
-different audience level. Separately, confirm publication readiness:
+Before publishing or assigning a chapter, verify that you can do
+the following without referring to the draft. Teach the chapter's
+material from memory at the level the book targets, and work every
+exercise in the chapter and confirm your answer against the answer
+key. Identify where a student's likely misunderstanding would arise
+and explain past it, and predict how the chapter would need to
+change for a different audience level. Separately, confirm publication readiness:
 can you answer a reader's or reviewer's challenge to any specific
 claim or derivation, correct an error in a later printing or
 edition, and extend the chapter's material yourself if the
