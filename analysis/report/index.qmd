@@ -6,7 +6,7 @@ categories: [writing, textbooks, teaching, ai-assisted-writing, editing]
 description: "A methodological framework for reviewing textbook chapters drafted with generative-AI assistance, structured as five review phases plus an explicit test for whether the human author has earned ownership of the material."
 image: "media/images/hero.jpg"
 document-type: "blog"
-draft: true
+draft: false
 execute:
   echo: true
   warning: false
